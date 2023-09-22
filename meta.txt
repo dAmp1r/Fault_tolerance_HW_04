@@ -1,0 +1,19 @@
+#cloud-config
+disable_root: true
+timezone: Europe/Moscow
+repo_update: true
+apt:
+  preserve_sources_list: true
+packages:
+  - nginx
+runcmd:
+  - [ systemctl, nginx-reload ]
+  - [ systemctl, enable, nginx.service ]
+  - [ systemctl, start, --no-block, nginx.service ]
+users:
+  - name: damp
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIIK0y0soP1d/vRd7ZMA+k1v/fJ758umMHpAjIZc1VNf dgorbunov@secureducation.ru
